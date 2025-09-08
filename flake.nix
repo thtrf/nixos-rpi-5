@@ -17,7 +17,7 @@
   outputs = { self, nixpkgs, nixos-raspberrypi }@inputs:
     {
       nixosConfigurations = {
-        yourHostname = nixos-raspberrypi.lib.nixosSystem {
+        board = nixos-raspberrypi.lib.nixosSystem {
           specialArgs = inputs;
           modules = [
             ({...}: {
@@ -28,7 +28,7 @@
             })
             ({ ... }: {
               networking.hostName = "server";
-              users.users.yourUserName = {
+              users.users.server = {
                 initialPassword = "server";
                 isNormalUser = true;
                 extraGroups = [
