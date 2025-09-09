@@ -30,13 +30,6 @@
             ./modules
             ({ ... }: {
               networking.hostName = "rpi5";
-              users.users.user = {
-                initialPassword = "1234";
-                isNormalUser = true;
-                extraGroups = [
-                  "wheel"
-                ];
-              };
 
               services.openssh.enable = true;
             })
