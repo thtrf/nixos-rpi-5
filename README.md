@@ -27,13 +27,20 @@ Write the built image to a USB drive (not the SD card).
 
 To speed up compilation, especially on a Raspberry Pi, configure a remote builder by following these steps:
 
-1. Edit `/etc/nix/nix.conf` to include the builders configuration:
+1. Make sure you can SSH into the remote machine without needing a password:
+
+```bash
+ssh-copy-id user@remote-host
+ssh user@remote-host
+```
+
+2. Edit `/etc/nix/nix.conf` to include the builders configuration:
 
 ```bash
 echo "builders = @/etc/nix/machines" | sudo tee -a /etc/nix/nix.conf
 ```
 
-2. Define your remote machines in `/etc/nix/machines` with the format:
+3. Define your remote machines in `/etc/nix/machines` with the format:
 
 ```
 <ssh-remote> <system> <ssh-opts> <max-jobs> <speed-factor> [features...]
@@ -48,3 +55,11 @@ Run the following command to install NixOS:
 ```bash
 nixos-rebuild switch --flake github:thtrf/nixos-rpi-5 --builders ''
 ```
+
+## LOL
+
+nix = {
+  extraOptions = ''
+    builders = ssh://user@remote-host x86_64-linux
+  '';
+};

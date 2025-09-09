@@ -42,7 +42,7 @@
             ({ ... }: {
               fileSystems = {
                 "/boot/firmware" = {
-                  device = "/dev/disk/by-uuid/2175-794E";
+                  device = "/dev/disk/by-uuid/EC36-4DE1"; # lsblk -f
                   fsType = "vfat";
                   options = [
                     "noatime"
@@ -52,7 +52,7 @@
                   ];
                 };
                 "/" = {
-                  device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
+                  device = "/dev/disk/by-uuid/d4cc7d63-da78-48ad-9bdd-64ffbba449a8"; # lsblk -f
                   fsType = "ext4";
                   options = [ "noatime" ];
                 };
