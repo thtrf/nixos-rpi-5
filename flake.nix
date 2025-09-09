@@ -17,19 +17,21 @@
   outputs = { self, nixpkgs, nixos-raspberrypi }@inputs:
     {
       nixosConfigurations = {
-        board = nixos-raspberrypi.lib.nixosSystem {
+        rpi5 = nixos-raspberrypi.lib.nixosSystem {
           specialArgs = inputs;
           modules = [
             ({...}: {
               imports = with nixos-raspberrypi.nixosModules; [
+                ./hardware-configuration.nix
                 raspberry-pi-5.base
                 raspberry-pi-5.bluetooth
               ];
             })
+            ./modules
             ({ ... }: {
-              networking.hostName = "server";
-              users.users.server = {
-                initialPassword = "server";
+              networking.hostName = "rpi5";
+              users.users.user = {
+                initialPassword = "1234";
                 isNormalUser = true;
                 extraGroups = [
                   "wheel"
@@ -42,8 +44,6 @@
             ({ ... }: {
               fileSystems = {
                 "/boot/firmware" = {
-                  device = "/dev/disk/by-uuid/EC36-4DE1"; # lsblk -f
-                  fsType = "vfat";
                   options = [
                     "noatime"
                     "noauto"
@@ -52,8 +52,6 @@
                   ];
                 };
                 "/" = {
-                  device = "/dev/disk/by-uuid/d4cc7d63-da78-48ad-9bdd-64ffbba449a8"; # lsblk -f
-                  fsType = "ext4";
                   options = [ "noatime" ];
                 };
               };
