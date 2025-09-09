@@ -32,6 +32,7 @@ To speed up compilation, especially on a Raspberry Pi, configure a remote builde
 1. Make sure you can SSH into the remote machine without needing a password:
 
 ```bash
+ssh-keygen -t ed25519 -C <comment>
 ssh-copy-id user@remote-host
 ssh user@remote-host
 ```
@@ -74,7 +75,8 @@ nixos-generate-config --root /mnt
 4. Copy it into this repo:
 
 ```bash
-cp /mnt/etc/nixos/hardware-configuration.nix $(pwd)
+cp /mnt/etc/nixos/hardware-configuration.nix .
+git add .
 ```
 
 ### 6. Install NixOS
