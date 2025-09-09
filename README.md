@@ -104,3 +104,27 @@ nixos-rebuild switch --flake .#rpi5
 ```
 
 **Note**: You need to reconfigure remote builders.
+
+## Troubleshooting
+
+### WiFi Issues while Installing
+
+The file `/etc/resolv.conf` defines your DNS servers. If it’s empty or incorrect, you can manually add DNS servers:
+
+```bash
+sudo nano /etc/resolv.conf
+```
+
+Add the following:
+
+```txt
+nameserver 8.8.8.8
+nameserver 1.1.1.1
+```
+
+Then, add a link and restart systemd-resolved:
+
+```bash
+sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+sudo systemctl restart systemd-resolved
+```
